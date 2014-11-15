@@ -14,3 +14,8 @@ Point Daüxer at your instance of FogBugz, and it will pull specific requirement
 Currently, edit line 12 in `dauxer.py` to be a list of the projects you would like to pull from your FogBugz instance.
 
 Also, edit lines 4-5 with the URL and Token needed to access the FogBugz API.
+
+## Dependencies
+
+* [Flask](http://flask.pocoo.org/)
+* [Python FogBugz API Wrapper](https://pypi.python.org/pypi/fogbugz/)
