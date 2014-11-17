@@ -11,9 +11,13 @@ Point Daüxer at your instance of FogBugz, and it will pull specific requirement
 
 ## Configuration
 
-Currently, edit line 12 in `dauxer.py` to be a list of the projects you would like to pull from your FogBugz instance.
+Edit lines 4-5 with the URL and Token needed to access the FogBugz API.
 
-Also, edit lines 4-5 with the URL and Token needed to access the FogBugz API.
+## Getting Started
+
+    vagrant up
+
+This will initialize the vagrant box and start two docker containers comprising the application: one running mongodb, and one running the flask app.
 
 ## Dependencies
 
