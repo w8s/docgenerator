@@ -1,10 +1,66 @@
 from fogbugz import FogBugz
 from pprint import pprint
 
-FB_URL = "FOGBUGZ URL"
-FB_TOKEN = "FOGBUGZ TOKEN"
+FB_URL = "ENTERURL"
+FB_TOKEN = "ENTERTOKEN"
 
-fb = FogBugz(FB_URL, FB_TOKEN)
+def get_project_data(project_name):
+    fb = FogBugz(FB_URL, FB_TOKEN)
+
+    project_xml = fb.viewProject(sProject=project_name)
+
+    person_xml = fb.viewPerson(ixPerson=project_xml.ixpersonowner.text)
+
+    project_dict = {'project': project_xml.sproject.text.encode('UTF-8'),
+                        'id': project_xml.ixproject.text,
+                        'owner': person_xml.sfullname.text,
+                        'email': person_xml.semail.text,
+                        'wiki_id': None,
+                        'wiki_root': None}
+
+    wiki_list = fb.listWikis()
+
+    for wiki in wiki_list.wikis.childGenerator():
+            if project_dict['project'] == wiki.swiki.text.encode('UTF-8'):
+                wiki_id = wiki.ixwiki.text
+                wiki_root = wiki.ixwikipageroot.text
+
+    project_dict['wiki_id'] = wiki_id
+    project_dict['wiki_root'] = wiki_root
+
+
+    return project_dict
+
+def get_list_of_projects():
+    fb = FogBugz(FB_URL, FB_TOKEN)
+
+    project_xml = fb.listProjects()
+    wiki_list = fb.listWikis()
+
+    projects = []
+
+    for project in project_xml.projects.childGenerator():
+
+        project_dict = {'project': project.sproject.text.encode('UTF-8'),
+                        'id': project.ixproject.text,
+                        'owner': project.spersonowner.text,
+                        'email': project.semail.text}
+
+        wiki_id = None
+        wiki_root = None
+
+        for wiki in wiki_list.wikis.childGenerator():
+            if project_dict['project'] == wiki.swiki.text.encode('UTF-8'):
+                wiki_id = wiki.ixwiki.text
+                wiki_root = wiki.ixwikipageroot.text
+
+        project_dict['wiki_id'] = wiki_id
+        project_dict['wiki_root'] = wiki_root
+
+        projects.append(project_dict)
+
+    return projects
+
 
 def get_requirements_cases(project_name):
     """
@@ -18,6 +74,8 @@ def get_requirements_cases(project_name):
     * event
     * area
     """
+
+    fb = FogBugz(FB_URL, FB_TOKEN)
 
     print "Requesting Data"
 
@@ -52,3 +110,11 @@ def get_cases_from_XML(xmlresp):
         cases.append(case_dict)
 
     return cases
+
+
+def get_wiki_content(wiki_root):
+    fb = FogBugz(FB_URL, FB_TOKEN)
+
+    wiki = fb.viewArticle(ixWikiPage=wiki_root)
+
+    return wiki.wikipage.sbody.text.encode('UTF-8')

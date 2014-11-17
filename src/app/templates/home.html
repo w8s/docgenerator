@@ -5,7 +5,7 @@
 {% if projects %}
 <ul>
     {% for project in projects %}
-    <li><a href="/project/{{project}}/">{{project}}</a></li>
+    <li><a href="/project/{{project.project}}/">{{project.project}}</a> ((WIKI: {{project.wiki_id}}; {{project.wiki_root}}))</li>
     {%endfor%}
 </ul>
 {% endif %}
