@@ -7,8 +7,19 @@ app = Flask(__name__, static_url_path='')
 
 @app.route("/")
 def index():
-    projects = fb.get_list_of_projects()
-    return render_template('home.html', projects=projects)
+
+    projects = None
+    error = None
+
+    tmp = fb.get_list_of_projects()
+
+    if type(tmp) == list:
+        projects = tmp
+    elif type(tmp) == str:
+        error = str
+
+    return render_template('home.html', projects=projects,
+                                        error=error)
 
 @app.route("/project/<projectname>/")
 def project(projectname):

@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if error %}
+{{error}}
+{% endif %}
+
 {% if projects %}
 <ul>
     {% for project in projects %}
