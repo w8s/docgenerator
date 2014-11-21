@@ -4,7 +4,13 @@
 
 <h1>{{project.project}}</h1>
 
-{{wiki}}
+{% for wiki in wikis %}
+{% if wiki.name != "Appendix" %}
+<h2>{{wiki.name}}</h2>
+
+{{wiki.content}}
+{% endif %}
+{% endfor %}
 
 <h2>Requirements</h2>
 
@@ -13,7 +19,15 @@
 <p>ID: {{case.id}}</p>
 <p><strong>Status:</strong> {{case.status}}</p>
 <p>{{case.event}}</p>
-<p><strong>Area:</strong> {{case.area}}</p>
+<p><strong>Area:</strong> {{case.area}} <strong>Subcases:</strong> {{case.children|length}}</p>
+{% endfor %}
+
+{% for wiki in wikis %}
+{% if wiki.name == "Appendix" %}
+<h2>{{wiki.name}}</h2>
+
+{{wiki.content}}
+{% endif %}
 {% endfor %}
 
 {% endblock %}

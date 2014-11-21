@@ -23,16 +23,22 @@ def index():
 
 @app.route("/project/<projectname>/")
 def project(projectname):
+    
+    sections = ["Overview", "Points of Contact", "Definitions", 
+                "Scope", "User Characteristics", "Assumptions", 
+                "Dependencies", "Constraints", "Appendix"]
+
+
 
     project = fb.get_project_data(projectname)
 
     cases = fb.get_requirements_cases(projectname)
 
-    wiki = fb.get_wiki_content(project['wiki_root']) 
+    wikis = fb.get_wiki_content(project['wiki_id'], sections) 
 
     return render_template('document.html', project=project,
                                             cases=cases,
-                                            wiki=Markup(wiki))
+                                            wikis=wikis)
 
 if __name__ == "__main__":
     app.run(debug=True)

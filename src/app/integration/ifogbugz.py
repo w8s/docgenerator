@@ -1,4 +1,5 @@
 from fogbugz import FogBugz
+from flask import Markup
 from pprint import pprint
 
 FB_URL = "https://dauxer.fogbugz.com"
@@ -85,7 +86,8 @@ def get_requirements_cases(project_name):
 
     print "Requesting Data"
 
-    resp = fb.search(q='category:"Requirement" orderby:"ixBug" project:"' + project_name + '"', cols="sTitle,sArea,ixBug,sLatestTextSummary,sFixFor,sStatus")
+    resp = fb.search(q='category:"Requirement" orderby:"ixBug" project:"' + project_name + '"', 
+                     cols="sTitle,sArea,ixBug,sLatestTextSummary,sFixFor,sStatus,ixBugChildren")
 
     # cases = get_cases_from_XML(resp)
 
@@ -97,30 +99,43 @@ def get_cases_from_XML(xmlresp):
 
     for case in xmlresp.cases.childGenerator():
         
-        # event_text = ""
-        ## Get Text from Event
-        # if (not case.events) or (len(case.events) != 0) :
-        #     for event in case.events.childGenerator():
-        #         if (not event.s) or (len(event.s) != 0) :
-        #             event_text = event.s.string.encode('UTF-8')
+        children = case.ixbugchildren.text
+        if not children:
+            child_list = []
+        else:
+            child_list = children.split(',')
 
         case_url = "%s/default.asp?%s" % (FB_URL, case.ixbug.string.encode('UTF-8'))
 
-        case_dict = {"id"    : case.ixbug.string.encode('UTF-8'),
-                     "title" : case.stitle.string.encode('UTF-8'),
-                     "status": case.sstatus.string.encode('UTF-8'),
-                     "event" : case.slatesttextsummary.string.encode('UTF-8'),
-                     "area"  : case.sarea.string.encode('UTF-8'),
-                     "url"   : case_url }
+        case_dict = {"id"      : case.ixbug.string.encode('UTF-8'),
+                     "title"   : case.stitle.string.encode('UTF-8'),
+                     "status"  : case.sstatus.string.encode('UTF-8'),
+                     "event"   : case.slatesttextsummary.string.encode('UTF-8'),
+                     "area"    : case.sarea.string.encode('UTF-8'),
+                     "url"     : case_url ,
+                     "children": child_list}
 
         cases.append(case_dict)
 
     return cases
 
 
-def get_wiki_content(wiki_root):
+def get_wiki_content(wiki_id, sections):
     fb = FogBugz(FB_URL, FB_TOKEN)
 
-    wiki = fb.viewArticle(ixWikiPage=wiki_root)
+    wiki_articles = fb.listArticles(ixWiki=wiki_id)
 
-    return wiki.wikipage.sbody.text.encode('UTF-8')
+    article_list = []
+
+    for page in wiki_articles.articles.childGenerator():
+        if page.sheadline.text.encode('UTF-8') in sections:
+            article_dict = {"page_id": page.ixwikipage.text,
+                            "name"   : page.sheadline.text.encode('UTF-8')}
+            content = fb.viewArticle(ixWikiPage=article_dict["page_id"])
+            # print type(content.sbody.text.encode('UTF-8'))
+            article_dict['content'] = Markup(content.wikipage.sbody.text.encode('UTF-8'))
+            article_list.append(article_dict)
+    # wiki = fb.viewArticle(ixWikiPage=wiki_root)
+
+    # return wiki.wikipage.sbody.text.encode('UTF-8')
+    return article_list
