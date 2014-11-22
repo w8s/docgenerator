@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
+	<h1>{{project.project}}</h1>
 
-<h1>{{project.project}}</h1>
+	{% for wiki in wikis %}
+	{% if wiki.name != "Appendix" %}
+	<h2>{{wiki.name}}</h2>
 
-{% for wiki in wikis %}
-{% if wiki.name != "Appendix" %}
-<h2>{{wiki.name}}</h2>
+	{{wiki.content}}
+	{% endif %}
+	{% endfor %}
 
-{{wiki.content}}
-{% endif %}
-{% endfor %}
+	<h2>Requirements</h2>
 
-<h2>Requirements</h2>
+	{% for case in cases %}
+	<div class="well">
+		<h3><a href="{{case.url}}">{{case.title}}</a></h3>
+		<p>ID: {{case.id}}</p>
+		<p><strong>Status:</strong> {{case.status}} <strong>Area:</strong> {{case.area}} <strong>Subcases:</strong> {{case.children|length}}</p>
+		<p>{{case.event}}</p>
+		<p></p>
+	</div>
+	{% endfor %}
 
-{% for case in cases %}
-<h3><a href="{{case.url}}">{{case.title}}</a></h3>
-<p>ID: {{case.id}}</p>
-<p><strong>Status:</strong> {{case.status}}</p>
-<p>{{case.event}}</p>
-<p><strong>Area:</strong> {{case.area}} <strong>Subcases:</strong> {{case.children|length}}</p>
-{% endfor %}
+	{% for wiki in wikis %}
+	{% if wiki.name == "Appendix" %}
+	<h2>{{wiki.name}}</h2>
 
-{% for wiki in wikis %}
-{% if wiki.name == "Appendix" %}
-<h2>{{wiki.name}}</h2>
-
-{{wiki.content}}
-{% endif %}
-{% endfor %}
-
+	{{wiki.content}}
+	{% endif %}
+	{% endfor %}
+</div>
 {% endblock %}

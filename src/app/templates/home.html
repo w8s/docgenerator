@@ -7,10 +7,23 @@
 {% endif %}
 
 {% if projects %}
-<ul>
-    {% for project in projects %}
-    <li><a href="/project/{{project.project}}/">{{project.project}}</a> ((WIKI: {{project.wiki_id}}; {{project.wiki_root}}))</li>
-    {%endfor%}
-</ul>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Project Listing</h2>
+			<div id="project-list">
+				<ul class="list-unstyled">
+				    {% for project in projects %}
+				    <li><h3><a href="/project/{{project.project}}/">{{project.project}}</a></h3>
+				    	<ul class="list-unstyled">
+				    		<li>Project Lead: <a href="mailto:{{project.email}}">{{project.owner}}</a></li>
+				    	</ul>
+				    </li>
+				    {%endfor%}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 {% endif %}
 {% endblock %}

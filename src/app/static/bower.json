@@ -3,7 +3,6 @@
     "version": "0.0.1",
     "dependencies": {
         "bootstrap": "latest",
-        "jquery": "2.1.1",
-        "bootstrap-tags": "latest"
+        "jquery": "2.1.1"
     }
 }
