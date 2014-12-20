@@ -128,7 +128,7 @@ def get_wiki_content(wiki_id, sections):
     article_list = []
 
     for page in wiki_articles.articles.childGenerator():
-        if page.sheadline.text.encode('UTF-8') in sections:
+        if page.sheadline.text.encode('UTF-8') in app.mongo.sections:
             article_dict = {"page_id": page.ixwikipage.text,
                             "name"   : page.sheadline.text.encode('UTF-8')}
             content = fb.viewArticle(ixWikiPage=article_dict["page_id"])

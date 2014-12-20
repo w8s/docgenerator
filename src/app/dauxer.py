@@ -1,18 +1,11 @@
 from flask import Flask, request, send_file, render_template, send_from_directory, Markup
-from flask.ext.pymongo import PyMongo
 import os
 from integration import ifogbugz as fb
 
 app = Flask(__name__, static_url_path='')
 
-app.config['MONGO_HOST'] = os.environ['MONGO_PORT_27017_TCP_ADDR']
-app.config['MONGO_DBNAME'] = 'dauxer'
-mongo = PyMongo(app)
-
 @app.route("/")
 def index():
-
-    # online_users = mongo.db.users.find({'online': True})
 
     projects = None
     error = None
