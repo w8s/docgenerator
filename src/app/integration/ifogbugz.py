@@ -8,7 +8,7 @@ FB_URL = "https://dauxer.fogbugz.com"
 FB_TOKEN = "6ivr5eehv55nfcucj85aol633q3d08"
 
 def get_project_data(project_name):
-    
+
     try:
         fb = FogBugz(FB_URL, FB_TOKEN)
     except:
@@ -86,7 +86,7 @@ def get_requirements_cases(project_name):
 
     print "Requesting Data"
 
-    resp = fb.search(q='category:"Requirement" orderby:"ixBug" project:"' + project_name + '"', 
+    resp = fb.search(q='category:"Requirement" orderby:"ixBug" project:"' + project_name + '"',
                      cols="sTitle,sArea,ixBug,sLatestTextSummary,sFixFor,sStatus,ixBugChildren")
 
     # cases = get_cases_from_XML(resp)
@@ -94,11 +94,11 @@ def get_requirements_cases(project_name):
     return get_cases_from_XML(resp)
 
 def get_cases_from_XML(xmlresp):
-    
+
     cases = []
 
     for case in xmlresp.cases.childGenerator():
-        
+
         children = case.ixbugchildren.text
         if not children:
             child_list = []
@@ -128,7 +128,7 @@ def get_wiki_content(wiki_id, sections):
     article_list = []
 
     for page in wiki_articles.articles.childGenerator():
-        if page.sheadline.text.encode('UTF-8') in app.mongo.sections:
+        if page.sheadline.text.encode('UTF-8') in sections:
             article_dict = {"page_id": page.ixwikipage.text,
                             "name"   : page.sheadline.text.encode('UTF-8')}
             content = fb.viewArticle(ixWikiPage=article_dict["page_id"])

@@ -27,9 +27,9 @@ def index():
 
 @app.route("/project/<projectname>/")
 def project(projectname):
-    
-    sections = ["Overview", "Points of Contact", "Definitions", 
-                "Scope", "User Characteristics", "Assumptions", 
+
+    sections = ["Overview", "Points of Contact", "Definitions",
+                "Scope", "User Characteristics", "Assumptions",
                 "Dependencies", "Constraints", "Appendix"]
 
     project = fb.get_project_data(projectname)
@@ -40,7 +40,7 @@ def project(projectname):
 
     app.logger.info('Number of requirement cases: %r', len(cases))
 
-    wikis = fb.get_wiki_content(project['wiki_id'], sections) 
+    wikis = fb.get_wiki_content(project['wiki_id'], sections)
 
     app.logger.info('Wiki Sections: %r', sections)
 
