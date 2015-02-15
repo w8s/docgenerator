@@ -1,13 +1,11 @@
-daüxer
+docgenerator
 ======
 
-Daüxer is a web application that dynamically presents system requirements documentation directly from issue trackers and wikis. 
+`docgenerator` is a web application that dynamically presents system requirements documentation directly from issue trackers and wikis. 
 
-Currently, Daüxer only supports Fog Creek's FogBugz. Plans are in place to support Atlassian's Jira and Confluence.
+Currently, `docgenerator` only supports Fog Creek's [FogBugz](http://www.fogcreek.com/fogbugz/). Plans are in place to support Atlassian's [Jira](https://www.atlassian.com/software/jira) and [Confluence](https://www.atlassian.com/software/confluence).
 
-Point Daüxer at your instance of FogBugz, and it will pull specific requirements, and wiki entries to generate a requirements document.
-
-*This project is volatile and subject to frequent change.*
+Point `docgenerator` at your instance of FogBugz, and it will pull specified requirements, and wiki entries to generate a requirements document artifact.
 
 ## Configuration
 
@@ -23,3 +21,7 @@ This will initialize the vagrant box and start two docker containers comprising 
 
 * [Flask](http://flask.pocoo.org/)
 * [Python FogBugz API Wrapper](https://pypi.python.org/pypi/fogbugz/)
+ 
+## Commercial Adaptation
+
+The concepts used in `docgenerator` have been implemented in the commercial tool: [Daüxer](http://www.dauxer.de).
