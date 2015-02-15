@@ -9,7 +9,8 @@ Point `docgenerator` at your instance of FogBugz, and it will pull specified req
 
 ## Configuration
 
-Edit lines 4-5 with the URL and Token needed to access the FogBugz API.
+In `/src/app/integration/ifogbugz.py`, edit lines `5` and `8` with the URL and Token needed to access the FogBugz API.
+
 
 ## Getting Started
 
