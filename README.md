@@ -15,7 +15,7 @@ Edit lines 4-5 with the URL and Token needed to access the FogBugz API.
 
     vagrant up
 
-This will initialize the vagrant box and start two docker containers comprising the application: one running mongodb, and one running the flask app.
+This will initialize a vagrant box and start a docker container running the flask app.
 
 ## Dependencies
 
