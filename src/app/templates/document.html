@@ -6,7 +6,7 @@
 
 	{% for wiki in wikis %}
 	{% if wiki.name != "Appendix" %}
-	<h2>{{wiki.name}}</h2>
+	<h2><a href="{{wiki.url}}">{{wiki.name}}</a></h2>
 
 	{{wiki.content}}
 	{% endif %}
@@ -26,7 +26,7 @@
 
 	{% for wiki in wikis %}
 	{% if wiki.name == "Appendix" %}
-	<h2>{{wiki.name}}</h2>
+	<h2><a href="{{wiki.url}}">{{wiki.name}}</a></h2>
 
 	{{wiki.content}}
 	{% endif %}

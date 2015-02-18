@@ -4,6 +4,7 @@ from integration import ifogbugz as fb
 
 app = Flask(__name__, static_url_path='')
 
+
 @app.route("/")
 def index():
 
@@ -25,12 +26,14 @@ def index():
     return render_template('home.html', projects=projects,
                                         error=error)
 
+
 @app.route("/project/<projectname>/")
 def project(projectname):
 
-    sections = ["Overview", "Points of Contact", "Definitions",
-                "Scope", "User Characteristics", "Assumptions",
-                "Dependencies", "Constraints", "Appendix"]
+    sections = None
+
+    with open (os.path.join(os.path.dirname(os.path.abspath(__file__)), "wiki_sections.cfg"), "r") as section_cfg:
+        sections=section_cfg.read().replace('\n', '')
 
     project = fb.get_project_data(projectname)
 
@@ -47,6 +50,7 @@ def project(projectname):
     return render_template('document.html', project=project,
                                             cases=cases,
                                             wikis=wikis)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
