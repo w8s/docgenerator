@@ -22,7 +22,3 @@ This will initialize a vagrant box and start a docker container running the flas
 
 * [Flask](http://flask.pocoo.org/)
 * [Python FogBugz API Wrapper](https://pypi.python.org/pypi/fogbugz/)
- 
-## Commercial Adaptation
-
-The concepts used in `docgenerator` have been implemented in the commercial tool: [Daüxer](http://www.dauxer.de).
