@@ -20,5 +20,11 @@ This will initialize a vagrant box and start a docker container running the flas
 
 ## Dependencies
 
+The dependencies are included in the Vagrant configuration. 
+
 * [Flask](http://flask.pocoo.org/)
 * [Python FogBugz API Wrapper](https://pypi.python.org/pypi/fogbugz/)
+
+## Other Resources
+
+[Slides from ConFoo presentation]() 
