@@ -27,4 +27,4 @@ The dependencies are included in the Vagrant configuration.
 
 ## Other Resources
 
-[Slides from ConFoo presentation]() 
+[Slides from ConFoo presentation](https://drive.google.com/open?id=0B51wD4VXm0XyMTR3aUlRcmdtRWM&authuser=0) 
