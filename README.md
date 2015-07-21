@@ -3,7 +3,7 @@ docgenerator
 
 `docgenerator` is a web application that dynamically presents system requirements documentation directly from issue trackers and wikis. 
 
-Currently, `docgenerator` only supports Fog Creek's [FogBugz](http://www.fogcreek.com/fogbugz/). Plans are in place to support Atlassian's [Jira](https://www.atlassian.com/software/jira) and [Confluence](https://www.atlassian.com/software/confluence).
+Currently, `docgenerator` only supports Fog Creek's [FogBugz](http://www.fogcreek.com/fogbugz/).
 
 Point `docgenerator` at your instance of FogBugz, and it will pull specified requirements, and wiki entries to generate a requirements document artifact.
 
